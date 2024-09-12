@@ -29,18 +29,16 @@ const findMentorForModule = (moduleName) => {
   // TODO complete this function
   const possibleMentors = possibleMentorsForModule(moduleName);
   
-  // Выводим список возможных менторов и их количество для проверки
   console.log("Possible Mentors:", possibleMentors);
 
   if (possibleMentors.length > 0) {
     const randomIndex = Math.floor(Math.random() * possibleMentors.length);
     
-    // Проверяем индекс
     console.log("Random Index:", randomIndex, "PossibleMentors Length:", possibleMentors.length);
 
     return possibleMentors[randomIndex];
   }
-  return null; // Если менторов нет
+  return null; 
 };
 // You can uncomment out this line to try your function
 console.log(findMentorForModule('javascript'));
