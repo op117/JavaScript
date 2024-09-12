@@ -3,4 +3,5 @@ const eurosFormatter = new Intl.NumberFormat('nl-NL', {
   currency: 'EUR',
 });
 
-export default eurosFormatter;
+//export default eurosFormatter;
+module.exports = eurosFormatter;
