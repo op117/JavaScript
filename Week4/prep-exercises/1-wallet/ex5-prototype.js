@@ -4,6 +4,8 @@ const eurosFormatter = require('./euroFormatter.js');
 function Wallet(name, cash) {
   this._name = name;
   this._cash = cash;
+  this._dailyAllowance = 40;
+  this._dayTotalWithdrawals = 0;
 }
 
 Wallet.prototype.deposit = function (amount) {
@@ -16,7 +18,13 @@ Wallet.prototype.withdraw = function (amount) {
     return 0;
   }
 
+  if (this._dayTotalWithdrawals + amount > this._dailyAllowance) {
+    console.log(`Daily withdrawal limit exceeded!`);
+    return 0;
+  }
+
   this._cash -= amount;
+  this._dayTotalWithdrawals += amount;
   return amount;
 };
 
@@ -40,13 +48,29 @@ Wallet.prototype.getName = function () {
   return this._name;
 };
 
+Wallet.prototype.resetDailyAllowance = function () {
+  this._dayTotalWithdrawals = 0;
+  console.log("Daily withdrawal limit has been reset.");
+};
+
+Wallet.prototype.setDailyAllowance = function (newAllowance) {
+  this._dailyAllowance = newAllowance;
+  console.log(`New daily withdrawal limit is set to ${newAllowance} euros.`);
+};
+
 function main() {
   const walletJack = new Wallet('Jack', 100);
   const walletJoe = new Wallet('Joe', 10);
   const walletJane = new Wallet('Jane', 20);
 
-  walletJack.transferInto(walletJoe, 50);
-  walletJane.transferInto(walletJoe, 25);
+  walletJack.setDailyAllowance(50);
+  walletJack.withdraw(30);
+  walletJack.reportBalance();
+
+  walletJack.resetDailyAllowance();
+  walletJack.withdraw(50);
+
+  walletJack.transferInto(walletJoe, 50); 
 
   walletJane.deposit(20);
   walletJane.transferInto(walletJoe, 25);
