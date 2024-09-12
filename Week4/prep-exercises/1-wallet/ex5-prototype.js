@@ -1,4 +1,5 @@
-import eurosFormatter from './euroFormatter.js';
+//import eurosFormatter from './euroFormatter.js';
+const eurosFormatter = require('./euroFormatter.js');
 
 function Wallet(name, cash) {
   this._name = name;
