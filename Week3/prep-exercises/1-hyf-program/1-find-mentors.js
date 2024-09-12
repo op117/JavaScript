@@ -1,4 +1,7 @@
-import { modules, students, mentors, classes } from "./hyf.js";
+//import { modules, students, mentors, classes } from "./hyf.js";
+//I removed modules, students, classes from the import
+//according to YAGNI (You Aren't Gonna Need It)
+import { mentors } from "./hyf.js";
 
 /**
  * Tjebbe would like help to get a list of possible mentors for a module.
@@ -9,9 +12,12 @@ import { modules, students, mentors, classes } from "./hyf.js";
  */
 const possibleMentorsForModule = (moduleName) => {
   // TODO complete this function
+  return mentors
+    .filter(mentor => mentor.canTeach.includes(moduleName))
+    .map(mentor => mentor.name);
 };
 // You can uncomment out this line to try your function
-// console.log(possibleMentorsForModule('using-apis'));
+console.log(possibleMentorsForModule('javascript'));
 
 /**
  * Tjebbe wants to make it even easier for himself.
@@ -21,6 +27,20 @@ const possibleMentorsForModule = (moduleName) => {
  */
 const findMentorForModule = (moduleName) => {
   // TODO complete this function
+  const possibleMentors = possibleMentorsForModule(moduleName);
+  
+  // Выводим список возможных менторов и их количество для проверки
+  console.log("Possible Mentors:", possibleMentors);
+
+  if (possibleMentors.length > 0) {
+    const randomIndex = Math.floor(Math.random() * possibleMentors.length);
+    
+    // Проверяем индекс
+    console.log("Random Index:", randomIndex, "PossibleMentors Length:", possibleMentors.length);
+
+    return possibleMentors[randomIndex];
+  }
+  return null; // Если менторов нет
 };
 // You can uncomment out this line to try your function
-// console.log(findMentorForModule('javascript'));
+console.log(findMentorForModule('javascript'));
